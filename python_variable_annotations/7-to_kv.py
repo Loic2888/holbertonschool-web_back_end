@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 def to_kv(k: str, v: int or float) -> tuple:
     """Creates a tuple of the key and the square of the value.
 
