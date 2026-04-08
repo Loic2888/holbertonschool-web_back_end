@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-def to_kv(k: str, v: int or float) -> tuple:
+
+from typing import Tuple, Union
+
+
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """Creates a tuple of the key and the square of the value.
 
     Args:
         k (str): The key.
-        v (int or float): The value.
+        v (Union[int, float]): The value (int or float).
 
     Returns:
-        tuple: A tuple of the key and the square of the value.
+        Tuple[str, float]: A tuple of the key and the square of the value.
     """
     return (k, v ** 2)
