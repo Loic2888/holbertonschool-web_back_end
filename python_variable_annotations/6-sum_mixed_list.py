@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-def sum_mixed_list(mxd_lst: list) -> float:
+
+from typing import List, Union
+
+
+def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
     """Sums a list of integers and floats.
 
     Args:
-        mxd_lst (list): A list of integers and floats.
+        mxd_lst (List[Union[int, float]]): A list of integers and floats.
 
     Returns:
         float: The sum of the list.
