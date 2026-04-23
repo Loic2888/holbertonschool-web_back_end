@@ -6,6 +6,7 @@ from typing import List
 
 index_range = __import__('0-simple_helper_function').index_range
 
+
 class Server:
     """Server class to paginate a database of popular baby names."""
     DATA_FILE = "Popular_Baby_Names.csv"
@@ -32,13 +33,13 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
-        
+
         start, end = index_range(page, page_size)
         data = self.dataset()[start:end]
         dataset_len = len(self.dataset())
-        
+
         total_pages = (dataset_len + page_size - 1) // page_size
-        
+
         return {
             'page_size': len(data),
             'page': page,
