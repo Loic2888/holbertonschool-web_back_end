@@ -1,3 +1,9 @@
-import initializeRooms from './1-make_classrooms.js';
+import ClassRoom from './0-classroom.js';
 
-console.log(initializeRooms());
+export default function initializeRooms() {
+  return [
+    new ClassRoom(19),
+    new ClassRoom(20),
+    new ClassRoom(34),
+  ];
+}
