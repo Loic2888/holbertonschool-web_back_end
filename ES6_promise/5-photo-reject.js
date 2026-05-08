@@ -1,9 +1,9 @@
 export default function uploadPhoto(filename) {
   return new Promise((resolve, reject) => {
     if (filename) {
-      resolve(filename);
+      reject(new Error(`${filename} cannot be processed`));
     } else {
-      reject(new Error('$fileName cannot be processed'));
+      resolve('photo-profile-1');
     }
   });
 }
