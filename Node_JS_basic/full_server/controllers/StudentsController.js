@@ -1,8 +1,11 @@
+import { resolve } from 'path';
 import readDatabase from '../utils';
+
+const DB = process.argv[2] || resolve(__dirname, '../../database.csv');
 
 export default class StudentsController {
   static getAllStudents(request, response) {
-    readDatabase(process.argv[2])
+    readDatabase(DB)
       .then((students) => {
         let result = 'This is the list of our students';
         for (const [key] of Object.entries(students).sort()) {
@@ -14,7 +17,7 @@ export default class StudentsController {
   }
 
   static getAllStudentsByMajor(request, response) {
-    readDatabase(process.argv[2])
+    readDatabase(DB)
       .then((students) => {
         if (!Object.keys(students).includes(request.params.major)) {
           response.status(500).send('Major parameter must be CS or SWE');
