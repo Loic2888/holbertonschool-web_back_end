@@ -6,16 +6,12 @@ export default class StudentsController {
 
     readDatabase(databaseFile)
       .then((students) => {
-        const sortedFields = Object.keys(students).sort((a, b) =>
-          a.toLowerCase().localeCompare(b.toLowerCase())
-        );
+        const sortedFields = Object.keys(students)
+          .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
         const lines = [
           'This is the list of our students',
-          ...sortedFields.map(
-            (field) =>
-              `Number of students in ${field}: ${students[field].length}. List: ${students[field].join(', ')}`
-          ),
+          ...sortedFields.map((field) => `Number of students in ${field}: ${students[field].length}. List: ${students[field].join(', ')}`),
         ];
 
         response.status(200).send(lines.join('\n'));
