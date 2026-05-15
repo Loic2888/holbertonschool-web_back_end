@@ -1,38 +1,28 @@
-import { readFile } from 'fs';
+import fs from 'fs';
 
-const readDatabase = (filePath) => new Promise((resolve, reject) => {
-  readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      reject(err);
-      return;
-    }
+function readDatabase(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+      } else {
+        const newArray = data.split('\n');
+        const students = newArray.slice(1).filter((line) => line.length > 0);
+        const fields = {};
+        students.forEach((line) => {
+          const itemStudents = line.split(',');
+          const firstname = itemStudents[0];
+          const field = itemStudents[3].trim();
 
-    const [header, ...rows] = data.trim().split('\n');
-    const headers = header.split(',');
-
-    const firstnameIndex = headers.indexOf('firstname');
-    const fieldIndex = headers.indexOf('field');
-
-    if (firstnameIndex === -1 || fieldIndex === -1) {
-      reject(new Error('Invalid CSV format: missing firstname or field column'));
-      return;
-    }
-
-    const result = rows.reduce((acc, line) => {
-      const columns = line.trim().split(',');
-      const firstname = columns[firstnameIndex];
-      const field = columns[fieldIndex];
-
-      if (!firstname || !field) return acc;
-
-      return {
-        ...acc,
-        [field]: [...(acc[field] || []), firstname],
-      };
-    }, {});
-
-    resolve(result);
+          if (!(field in fields)) {
+            fields[field] = [];
+          }
+          fields[field].push(firstname);
+        });
+        resolve(fields);
+      }
+    });
   });
-});
+}
 
 export default readDatabase;
