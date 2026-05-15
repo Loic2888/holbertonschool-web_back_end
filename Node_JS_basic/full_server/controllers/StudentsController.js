@@ -3,7 +3,7 @@ import readDatabase from '../utils';
 
 const DB = process.argv[2] || resolve(__dirname, '../../database.csv');
 
-export default class StudentsController {
+class StudentsController {
   static getAllStudents(request, response) {
     readDatabase(DB)
       .then((students) => {
@@ -29,3 +29,5 @@ export default class StudentsController {
       .catch(() => response.status(500).send('Cannot load the database'));
   }
 }
+
+export default StudentsController;
